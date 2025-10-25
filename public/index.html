@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Multi-room Chat</title>
+  <style>
+    body { margin: 0; font-family: system-ui, Segoe UI, Arial; background: #0f0f12; color: #eaeaf2; }
+    .app { display: grid; grid-template-columns: 240px 1fr; height: 100vh; }
+    .sidebar { background: #15151b; border-right: 1px solid #252533; padding: 12px; display: flex; flex-direction: column; gap: 12px; }
+    .section { display: flex; flex-direction: column; gap: 6px; }
+    input, button, select { background: #1a1a22; color: #eaeaf2; border: 1px solid #272734; border-radius: 8px; padding: 8px 10px; }
+    button { cursor: pointer; }
+    .rooms { display: flex; flex-direction: column; gap: 6px; max-height: 30vh; overflow-y: auto; }
+    .main { display: grid; grid-template-rows: auto 1fr auto; }
+    .header { padding: 12px 16px; border-bottom: 1px solid #252533; background: #121217; display: flex; align-items: center; justify-content: space-between; }
+    .messages { padding: 12px 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
+    .msg { max-width: 70%; border: 1px solid #262636; background: #1a1a22; padding: 8px 10px; border-radius: 10px; }
+    .meta { font-size: 11px; color: #9aa0a6; margin-bottom: 4px; }
+    .composer { display: grid; grid-template-columns: 1fr auto; gap: 10px; padding: 12px 16px; border-top: 1px solid #252533; background: #121217; }
+    .system { align-self: center; font-size: 12px; color: #9aa0a6; padding: 6px 10px; border-radius: 999px; border: 1px dashed #272734; background: #15151b; }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="section">
+        <label>Server address</label>
+        <input id="server" placeholder="ws://localhost:5001" />
+      </div>
+      <div class="section">
+        <label>Username</label>
+        <input id="username" placeholder="Cameron" />
+        <button id="connect">Connect</button>
+        <button id="disconnect" disabled>Disconnect</button>
+      </div>
+      <div class="section">
+        <label>Join room</label>
+        <input id="roomJoin" placeholder="room name (e.g. general)" />
+        <input id="roomJoinPwd" placeholder="password (optional)" />
+        <button id="join">Join</button>
+      </div>
+      <div class="section">
+        <label>Create room</label>
+        <input id="roomCreate" placeholder="new room name" />
+        <input id="roomCreatePwd" placeholder="password (optional)" />
+        <button id="create">Create</button>
+      </div>
+      <div class="section">
+        <label>Rooms</label>
+        <div id="rooms" class="rooms"></div>
+        <button id="refreshRooms">Refresh rooms</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="header">
+        <div>Room: <span id="currentRoom">none</span></div>
+        <div>Status: <span id="status">disconnected</span></div>
+      </div>
+      <div id="messages" class="messages"></div>
+      <div class="composer">
+        <input id="text" placeholder="Type a message..." />
+        <button id="send">Send</button>
+      </div>
+    </main>
+  </div>
+
+  <script src="client.js"></script>
+</body>
+</html>
